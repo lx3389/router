@@ -36,15 +36,14 @@ jobs:
           echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
           ./scripts/feeds clean
           ./scripts/feeds update -a
-          ./scripts/feeds install -a
+          ./scripts/feeds install -a -f -p passwall_packages
+          ./scripts/feeds install luci-app-passwall
           make defconfig
-          make menuconfig default
-          cat .config
-          #make download -j8 V=s
-          #find dl -size -1024c -exec ls -l {} \;
+          make download -j8 V=s
+          find dl -size -1024c -exec ls -l {} \;
           # make package/gn/compile V=99
-          #make package/luci-app-passwall/compile V=99
-          #make package/index
+          make package/luci-app-passwall/compile V=99
+          make package/index
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
