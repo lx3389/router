@@ -32,10 +32,11 @@ jobs:
           tar xJf openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
           cd openwrt-sdk-22.03.5-x86-64_gcc-11.2.0_musl.Linux-x86_64
           ls -al
-          echo "src-git PWpackages https://github.com/xiaorouji/openwrt-passwall.git;packages" >> feeds.conf.default
-          echo "src-git PWluci https://github.com/xiaorouji/openwrt-passwall.git;luci" >> feeds.conf.default
-          ./scripts/feeds install -a -f -p PWpackages
-          ./scripts/feeds install luci-app-passwall
+          echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
+          echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
+          ./scripts/feeds clean
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
           make defconfig
           make menuconfig default
           make download -j8 V=s
