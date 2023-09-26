@@ -37,6 +37,7 @@ jobs:
           ./scripts/feeds install -a -f -p PWpackages
           ./scripts/feeds install luci-app-passwall
           make defconfig
+          make menuconfig default
           make download -j8 V=s
           find dl -size -1024c -exec ls -l {} \;
           # make package/gn/compile V=99
